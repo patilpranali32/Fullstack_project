@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access Control - Cloud Console UI </title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="iam.css">
+</head>
+<body>
+
+<!-- Auth protection -->
+<script src="auth.js"></script>
+<script>
+  requireAuth();
+</script>
+
+<div class="topnav">
+    <div class="logo">Cloud Console <span class="demo-badge"></span></div>
+    <input type="text" placeholder="Search services...">
+    <div class="profile" id="profileName">User</div>
+    <div class="profile" onclick="logout()">Logout</div>
+</div>
+
+
+
+<div class="sidebar">
+    <h3>Home</h3>
+    <a href="dashboard.html">Dashboard</a>
+
+    <h3>Compute</h3>
+    <a href="ec2.html">Compute (VMs)</a>
+    <a href="lambda.html">Functions</a>
+
+    <h3>Storage</h3>
+    <a href="s3.html">Object Storage</a>
+
+    <h3>Database</h3>
+    <a href="rds.html">Managed DB</a>
+
+    <h3>Management</h3>
+    <a href="iam.html" class="active">Access Control</a>
+    <a href="cloudwatch.html">Monitoring</a>
+</div>
+
+<div class="main">
+    <h1>Access Control (Users & Roles)</h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="usersBtn" onclick="showTab('users')">Users</button>
+        <button class="tab-btn" id="rolesBtn" onclick="showTab('roles')">Roles</button>
+    </div>
+
+    <!-- Users Tab -->
+    <div id="usersTab" class="tab-content">
+        <div class="actions-bar">
+            <button onclick="showUserModal()" class="btn-primary">Add User</button>
+        </div>
+
+        <div class="stats-cards">
+            <div class="stat-card">
+                <h4>Total Users</h4>
+                <p class="stat-number" id="userCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h4>Active Users</h4>
+                <p class="stat-number" id="activeUsers">0</p>
+            </div>
+        </div>
+
+        <ul id="userList" class="iam-list"></ul>
+    </div>
+
+    <!-- Roles Tab -->
+    <div id="rolesTab" class="tab-content" style="display:none;">
+        <div class="actions-bar">
+            <button onclick="showRoleModal()" class="btn-primary">Create Role</button>
+        </div>
+
+        <div class="stats-cards">
+            <div class="stat-card">
+                <h4>Total Roles</h4>
+                <p class="stat-number" id="roleCount">0</p>
+            </div>
+        </div>
+
+        <ul id="roleList" class="iam-list"></ul>
+    </div>
+</div>
+
+<!-- Add User Modal -->
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add User </h2>
+            <span class="close" onclick="closeUserModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>User Name</label>
+                <input type="text" id="userName" placeholder="e.g., developer01">
+            </div>
+
+            <div class="form-group">
+                <label>Email (optional)</label>
+                <input type="email" id="userEmail" placeholder="user@example.com">
+            </div>
+
+            <div class="form-group">
+                <label>Access Type</label>
+                <select id="accessType">
+                    <option value="api">Programmatic access</option>
+                    <option value="console">Console access</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Permissions</label>
+                <select id="permType">
+                    <option value="policy">Attach policies directly</option>
+                    <option value="group">Add user to group</option>
+                    <option value="copy">Copy permissions from existing user</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button onclick="closeUserModal()" class="btn-secondary">Cancel</button>
+            <button onclick="addUser(); updateStats(); closeUserModal();" class="btn-primary">Create User</button>
+        </div>
+    </div>
+</div>
+
+<!-- Create Role Modal -->
+<div id="roleModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create Role (Demo)</h2>
+            <span class="close" onclick="closeRoleModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Role Name</label>
+                <input type="text" id="roleName" placeholder="e.g., ReadOnlyRole">
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <select id="roleType">
+                    <option value="service">Service</option>
+                    <option value="account">Another Account</option>
+                    <option value="web">Web Identity</option>
+                    <option value="saml">SAML 2.0</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" id="roleDescription" placeholder="Role description">
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button onclick="closeRoleModal()" class="btn-secondary">Cancel</button>
+            <button onclick="addRole(); updateStats(); closeRoleModal();" class="btn-primary">Create Role</button>
+        </div>
+    </div>
+</div>
+
+<script src="iam.js"></script>
+<script>
+  // profile name
+  const name = localStorage.getItem("loggedInUserName") || "User";
+  document.getElementById("profileName").textContent = name;
+
+  loadIAMData();
+  updateStats();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+/* Dashboard Styles */
+
+.welcome-text {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #232f3e;
+    margin-bottom: 20px;
+}
+
+/* DEMO banner + badge (for dashboard.html) */
+.demo-badge{
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-left: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+
+.demo-banner{
+    background: rgba(0,0,0,0.20);
+    color: #d0d7de;
+    font-size: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    width: 220px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.card-icon.ec2,
+.card-icon.lambda {
+    background: linear-gradient(135deg, #ff9900 0%, #e68a00 100%);
+}
+
+.card-icon.s3 {
+    background: linear-gradient(135deg, #3b48cc 0%, #2a3aa0 100%);
+}
+
+.card-icon.rds {
+    background: linear-gradient(135deg, #00a1c9 0%, #0088b3 100%);
+}
+
+.card-icon.iam {
+    background: linear-gradient(135deg, #dd344c 0%, #b82d40 100%);
+}
+
+.card-icon.cloudwatch {
+    background: linear-gradient(135deg, #00ace0 0%, #0088b3 100%);
+}
+
+.card a {
+    text-decoration: none;
+    color: #232f3e;
+}
+
+.card h3 {
+    margin: 10px 0;
+    color: #232f3e;
+    font-size: 18px;
+}
+
+.card p {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+}
+
+/* Stats Row */
+.stats-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.mini-stat {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+}
+
+.mini-stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mini-stat-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #232f3e;
+}
+
+/* Region Selector */
+.region-selector select {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    background: #344861;
+    color: white;
+    cursor: pointer;
+}
